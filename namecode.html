@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript"></script>            
+    <meta charset = "utf-8">
+</head>
+<body>
+    <div id = "div1"  />
+        <h1>DrawName</h1>
+		
+    <label>Please Choose Your File</label>
+    <input id = "fileinput" type = "file" onchange = "control()" />
+    <br> </br>
+    <canvas id = "myCanvas1" width = "100" height = "100"
+    style = "border : 1px solid #99D499;" >    
+    </canvas>
+    <br> </br>
+    <script>
+     function control()
+        {
+            var file = document.getElementById("fileinput").files[0];   
+            var reader = new FileReader();
+            reader.readAsText(file);
+            reader.onload = function(e)
+            {
+                var str = this.result; 
+                var coordX = new Array();
+                var coordY = new Array();
+                for (var m = 0;m < 100 ; m++)
+                {
+                    coordX[m] = new Array;
+                    coordY[m] = new Array;
+                    for (var n = 0;n < 10; n++)
+                    {
+                        coordX[m][n] = "";
+                        coordY[m][n] = "";
+                    }
+                }
+                Separation(str,coordX,coordY);
+                var c = document.getElementById("myCanvas1");
+                var ctx1 = c.getContext("2d");
+                ctx1.fillStyle = "FF0000";
+                DrawName(coordX,coordY,ctx1);
+            }
+        }
+        function DrawName(coordX,coordY,ctx1)
+{
+    for (var i = 0;i < coordX.length;i++)
+    {        
+        for (var j = 0;j < coordX[i].length;j++)
+        {                   
+            ctx1.beginPath();
+            ctx1.moveTo(coordX[i][j],coordY[i][j]);
+            ctx1.lineTo(coordX[i][j+1],coordY[i][j+1]); 
+            ctx1.stroke();     
+        }
+        
+
+    } 
+}   
+         function Separation(str,coordX,coordY)
+{
+    var items = new Array();
+    items = str.split("END\r\n"); 
+    var lines = new Array();
+    for (var m = 0;m < items.length ; m++) 
+    {
+        lines[m] = new Array();
+        for (var n = 0;n < 10;n++)
+        {
+            lines[m][n] = "";
+        }
+    }
+    for (var i = 0;i < items.length ; i++)
+    {
+        lines[i] = items[i].split("\r\n");
+    }
+    for (var p = 0;p < lines.length ; p++)
+    {
+        for (var q = 1;q < lines[p].length ; q++)
+        {
+            coordX[p][q-1] = Number(lines[p][q].split(",")[0]);
+            coordY[p][q-1] = Number(lines[p][q].split(",")[1]);
+        }
+    }
+}
+</script>
+
+</body>
+</html>
+"#myapp " 
+"#myapp " 
+"#myapp " 
+"#myapp " 
+"#bestwork" 
